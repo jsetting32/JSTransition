@@ -1,0 +1,16 @@
+PODS:
+  - JSTransition (0.1.0)
+
+DEPENDENCIES:
+  - JSTransition (from `../`)
+
+EXTERNAL SOURCES:
+  JSTransition:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  JSTransition: 3fbc9f71559a5025fd2195e564d2fb00995e1c53
+
+PODFILE CHECKSUM: e9280f328d246687135ed01fa588c52e18a00fe5
+
+COCOAPODS: 1.2.0.beta.3

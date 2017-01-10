@@ -2,7 +2,7 @@
 //  JSAppDelegate.m
 //  JSTransition
 //
-//  Created by John Setting on 01/10/2017.
+//  Created by John Setting on 01/08/2017.
 //  Copyright (c) 2017 John Setting. All rights reserved.
 //
 

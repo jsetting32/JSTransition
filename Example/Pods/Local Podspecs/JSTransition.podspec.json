@@ -1,0 +1,22 @@
+{
+  "name": "JSTransition",
+  "version": "0.1.0",
+  "summary": "A short description of JSTransition.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/JSTransition",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "John Setting": "jsetting32@yahoo.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/JSTransition.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "JSTransition/Classes/**/*"
+}

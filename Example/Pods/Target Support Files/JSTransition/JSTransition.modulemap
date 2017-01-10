@@ -1,0 +1,6 @@
+framework module JSTransition {
+  umbrella header "JSTransition-umbrella.h"
+
+  export *
+  module * { export * }
+}
