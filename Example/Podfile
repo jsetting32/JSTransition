@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JSTransition_Example' do
+  pod 'JSTransition', :path => '../'
+
+  target 'JSTransition_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
