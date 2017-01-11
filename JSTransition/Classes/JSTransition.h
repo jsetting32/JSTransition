@@ -19,7 +19,6 @@
 
 @interface JSTransition : NSObject <UIViewControllerAnimatedTransitioning>
 @property (assign, nonatomic) BOOL presenting;
-@property (assign, nonatomic) CGRect originFrame;
 @property (weak, nonatomic, nullable) UIViewController <JSTransitionProtocol> *sourceController;
 @property (weak, nonatomic, nullable) UIViewController <JSTransitionProtocol> *destinationController;
 @end

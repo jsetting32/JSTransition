@@ -50,7 +50,7 @@
     NSArray <NSIndexPath *> * indexPaths = [self.collectionView indexPathsForSelectedItems];
     NSIndexPath *firstIndexPath = [indexPaths firstObject];
     JSCollectionViewCell *cell = (JSCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:firstIndexPath];
-    CGRect cellFrameInSuperview = [cell.imageView convertRect:cell.imageView.frame toView:self.collectionView.superview];
+    CGRect cellFrameInSuperview = [cell.imageView convertRect:cell.imageView.bounds toView:self.collectionView.superview];
     return cellFrameInSuperview;
 }
 
@@ -63,10 +63,9 @@
     NSArray <NSIndexPath *> * indexPaths = [self.collectionView indexPathsForSelectedItems];
     NSIndexPath *firstIndexPath = [indexPaths firstObject];
     JSCollectionViewCell *cell = (JSCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:firstIndexPath];
-    CGRect cellFrameInSuperview = [cell.imageView convertRect:cell.imageView.frame toView:self.collectionView.superview];
+    CGRect cellFrameInSuperview = [cell.imageView convertRect:cell.imageView.bounds toView:self.collectionView.superview];
     return cellFrameInSuperview;
 }
-
 
 - (CGFloat)transitionDuration {
     return 1.0f;
@@ -81,7 +80,6 @@
         [presentingController conformsToProtocol:@protocol(JSTransitionProtocol)]) {
         JSTransition *transition = [[JSTransition alloc] init];
         transition.presenting = YES;
-        transition.originFrame = [self transitionSourceFrame];
         transition.sourceController = sourceController;
         transition.destinationController = presentingController;
         return transition;
@@ -97,7 +95,6 @@
         [presentingController conformsToProtocol:@protocol(JSTransitionProtocol)]) {
         JSTransition *transition = [[JSTransition alloc] init];
         transition.presenting = NO;
-        transition.originFrame = [self transitionSourceFrame];
         transition.sourceController = sourceController;
         transition.destinationController = presentingController;
         return transition;

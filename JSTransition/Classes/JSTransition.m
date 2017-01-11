@@ -26,14 +26,12 @@
 @implementation JSTransition
 
 static CGFloat const transitionDurationDefault = 0.5f;
-//static CGFloat const framesPerSecond = 60.0f;
-
+static CGFloat const framesPerSecond = 60.0f;
 
 - (instancetype)init {
     self = [super init];
     if (self) {
         _presenting = YES;
-        _originFrame = CGRectZero;
         _time = 0.0f;
         _animating = NO;
     }
@@ -66,17 +64,16 @@ static CGFloat const transitionDurationDefault = 0.5f;
 
     CGPoint initialMid = CGPointMake(CGRectGetMidX(self.initialFrame), CGRectGetMidY(self.initialFrame));
     CGPoint destinationMid = CGPointMake(CGRectGetMidX(self.finalFrame), CGRectGetMidY(self.finalFrame));
-    CGPoint center = [self interpolatePoint:initialMid to:destinationMid time:time];
 
     if (self.presenting) {
         //interpolate position
         UIViewController *toVC = [self.transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-        toVC.view.center = center;
-        //toVC.view.transform = [self interpolateTransform:toVC.view.transform to:CGAffineTransformIdentity time:time];
+        toVC.view.center = [self interpolatePoint:initialMid to:destinationMid time:time];
+        toVC.view.transform = [self interpolateTransform:toVC.view.transform to:CGAffineTransformIdentity time:time];
     } else {
         UIViewController *fromVC = [self.transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-        fromVC.view.center = center;
-        //fromVC.view.transform = [self interpolateTransform:fromVC.view.transform to:self.scaleTransform time:time];
+        fromVC.view.center = [self interpolatePoint:initialMid to:destinationMid time:time];
+        fromVC.view.transform = [self interpolateTransform:fromVC.view.transform to:self.scaleTransform time:time];
     }
     
     //stop the timer if we've reached the end of the animation
@@ -113,7 +110,7 @@ static CGFloat const transitionDurationDefault = 0.5f;
         self.scaleTransform = CGAffineTransformMakeScale(xScaleFactor, yScaleFactor);
         [containerView insertSubview:toVC.view belowSubview:fromVC.view];
     }
-    
+//    [fromVC beginAppearanceTransition:NO animated:YES];
 #ifdef link
     if (!self.animating) {
         self.animating = YES;
@@ -126,20 +123,19 @@ static CGFloat const transitionDurationDefault = 0.5f;
         return;
     }
 #else
-    [fromVC beginAppearanceTransition:NO animated:YES];
-    [UIView animateWithDuration:duration delay:0.0f options:UIViewAnimationOptionCurveLinear animations:^{
+    [UIView animateWithDuration:duration animations:^{
         if (self.presenting) {
-            //[toVC.view setTransform:CGAffineTransformIdentity];
+            [toVC.view setTransform:CGAffineTransformIdentity];
             toVC.view.center = CGPointMake(CGRectGetMidX(self.finalFrame), CGRectGetMidY(self.finalFrame));
         } else {
-            //[fromVC.view setTransform:self.scaleTransform];
+            [fromVC.view setTransform:self.scaleTransform];
             fromVC.view.center = CGPointMake(CGRectGetMidX(self.finalFrame), CGRectGetMidY(self.finalFrame));
         }
     } completion:^(BOOL finished) {
         if (self.presenting) {
-            [fromVC endAppearanceTransition];
-        } else {
             [toVC endAppearanceTransition];
+        } else {
+            [fromVC endAppearanceTransition];
         }
         [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
     }];
